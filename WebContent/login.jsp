@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/login.css">
 <title>SKKU Flea Market</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 
 <script>
@@ -33,6 +34,22 @@
 			return false;
 		}
 	}
+	
+	<!-- if check Administrator, can't select seller or buyer-->
+	$(document).ready(function(){
+	    $("#checkAdmin").change(function(){
+	        if($("#checkAdmin").is(":checked")){
+	            $("#optionsRadios1").attr('disabled', true);
+	            $("#optionsRadios2").attr('disabled', true);
+	            $("#checkAdmin").attr('value', "Admin");
+	        }else{
+	        	$("#optionsRadios1").attr('disabled', false);
+	            $("#optionsRadios2").attr('disabled', false);
+	            $("#checkAdmin").attr('value', "");
+	        }
+	    });
+	});
+
 			
 </script>
 
@@ -95,6 +112,12 @@
     			Buyer
   			</label>
 		</div>
+		<div class="checkbox">
+  			<label>
+    		<input type="checkbox" name="checkAdmin" id="checkAdmin">
+    		Administrator
+  			</label>
+		</div>
         <button type="submit" class="btn btn-primary">Login</button>
       </form>
     </div>
@@ -104,7 +127,7 @@
 	<jsp:include page="footer.jsp"></jsp:include>
 
 	
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	
 	<script src="js/bootstrap.js"></script>
 </body>
 </html>
