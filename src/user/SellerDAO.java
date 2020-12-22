@@ -72,11 +72,36 @@ public class SellerDAO {
 			pstmt.setString(2, seller.getSellerPW());
 			pstmt.setString(3, seller.getSellerName());
 			
-			return pstmt.executeUpdate();
+			pstmt.executeUpdate();
+			
+			if(userUpdate(seller))
+			{
+				return pstmt.executeUpdate();
+			} else {
+				return -1;
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return -1; // database error
+	}
+	
+	private boolean userUpdate(Seller seller) {
+		String SQL2 = "INSERT INTO user(userID, userPW, userName, userType) VALUES (?, ?, ?, ?)";
+		try {
+			pstmt = conn.prepareStatement(SQL2);
+			
+			pstmt.setString(1, seller.getSellerID());
+			pstmt.setString(2, seller.getSellerPW());
+			pstmt.setString(3, seller.getSellerName());
+			pstmt.setString(4, "seller");
+			
+			return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

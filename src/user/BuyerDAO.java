@@ -65,19 +65,49 @@ public class BuyerDAO {
 	
 	public int join(Buyer buyer) {
 		String SQL = "INSERT INTO buyer(buyerID, buyerPW, buyerName) VALUES (?, ?, ?)";
+		
+		
 		try {
 			pstmt = conn.prepareStatement(SQL);
 			
 			pstmt.setString(1, buyer.getBuyerID());
 			pstmt.setString(2, buyer.getBuyerPW());
 			pstmt.setString(3, buyer.getBuyerName());
+			pstmt.executeUpdate();
 			
-			return pstmt.executeUpdate();
+			if(userUpdate(buyer))
+			{
+				return pstmt.executeUpdate();
+			} else {
+				return -1;
+			}
+			
+		
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 		return -1; // database error
+	}
+	
+	private boolean userUpdate(Buyer buyer) {
+		String SQL2 = "INSERT INTO user(userID, userPW, userName, userType) VALUES (?, ?, ?, ?)";
+		try {
+			pstmt = conn.prepareStatement(SQL2);
+			
+			pstmt.setString(1, buyer.getBuyerID());
+			pstmt.setString(2, buyer.getBuyerPW());
+			pstmt.setString(3, buyer.getBuyerName());
+			pstmt.setString(4, "buyer");
+			
+			return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 }

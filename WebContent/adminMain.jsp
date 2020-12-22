@@ -8,6 +8,47 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="css/bootstrap.css">
 <title>SKKU Flea Market</title>
+
+<style type="text/css">
+.navbar {
+ margin: 0;
+}
+
+.navbar-header .navbar-brand{
+	color: #01942d;
+}
+
+.navbar-header .navbar-brand:hover{
+	color: #01942d;
+}
+
+.jumbotron {
+	margin: 0;
+	text-align: center;
+	color: #01942d;
+}
+
+.jumbotron h1 {
+	font-size: 3em;
+}
+
+.btn-lg {
+	background-color: #8ccfa0;
+	border: none;
+}
+
+.btn-lg:hover {
+	background-color: #01942d;
+}
+
+.member-container {
+	margin-top: 20px;
+}
+</style>
+
+
+
+
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
@@ -41,7 +82,33 @@
 			</ul>
 		</div>
 	</nav>
+	<!-- information of page -->
+	<div class="jumbotron">
+  		<h1>Member List</h1>
+  		<p>You can modify and delete user info.</p>
+  		<p><a class="btn btn-primary btn-lg" href="#" role="button">Seller</a></p>
+  		<p><a class="btn btn-primary btn-lg" href="#" role="button">Buyer</a></p>
+  		
+	</div>
 	
+	
+	<!-- table -->
+	<div class="container member-container">
+		<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+			<thead>
+				<tr>
+					<th style="background-color: #eeeeee; text-align:center;">ID</th>
+					<th style="background-color: #eeeeee; text-align:center;">Password</th>
+					<th style="background-color: #eeeeee; text-align:center;">Name</th>
+					<th style="background-color: #eeeeee; text-align:center;">Seller / Buyer</th>
+					<th style="background-color: #eeeeee; text-align:center;">Delete</th>
+				</tr>
+			</thead>
+		
+		</table>
+	</div>
+	
+
 	<!-- page footer -->
 	<jsp:include page="footer.jsp"></jsp:include>
 
