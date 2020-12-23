@@ -48,6 +48,24 @@ public class ProductDAO {
 		return -1;
 	}
 	
+	/*±¸¸Å*/
+	public int buyProduct(int productID, String buyerID) {
+		String SQL = "UPDATE product SET productStatus = ? , productBuyer = ? WHERE productID = ? ";
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, "sold out");
+			pstmt.setString(2, buyerID);
+			pstmt.setInt(3, productID);
+			
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return -1; // database error
+	}
+	
 
 	public ArrayList<Product> getList(String sellerID) {
 		String SQL = "SELECT * FROM product WHERE sellerID = ?";
@@ -123,6 +141,36 @@ public class ProductDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	/*view product detail*/
+	public Product getProductDetail(int productID) {
+		String SQL = "SELECT * FROM product WHERE productID = ?";
+		Product product = null;
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, productID);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				product = new Product();
+				
+				// product.setProductID(Integer.parseInt(rs.getString(1)));
+				product.setProductName(rs.getString(2));
+				product.setProductPrice(rs.getString(3));
+				product.setProductImage(rs.getString(4));
+				product.setProductImageRealName(rs.getString(5));
+				product.setSellerName(rs.getString(7));
+				product.setTradingPlace(rs.getString(8));
+				product.setProductStatus(rs.getString(9));
+				product.setProductBuyer(rs.getString(10));
+				return product;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return product;
 	}
 
 }

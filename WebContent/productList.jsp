@@ -91,7 +91,7 @@
 		<!-- 게시판 제목 이름 옆에 나타나는 메뉴 영역 -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="productList.jsp">Product List</a></li>
+				<li><a href="productList.jsp">Search Products</a></li>
 				<li><a href="buyList.jsp">Buy List</a></li>
 			</ul>
 			<!-- 헤더 우측에 나타나는 드랍다운 영역 -->
@@ -150,7 +150,7 @@
 								<td><%= list.get(i).getTradingPlace() %></td>
 								<td><%= list.get(i).getProductStatus() %></td>
 								<td><%= list.get(i).getSellerName() %></td>
-								<td><button type="button" class="btn btn-xs btn-outline-dark" type="submit">View detail</button></td>
+								<td><a href="productDetail.jsp?productID=<%=list.get(i).getProductID()%>" class="btn btn-xs btn-outline-dark" role="button">View detail</a></td>
 							</tr>
 							<%
 						}	
