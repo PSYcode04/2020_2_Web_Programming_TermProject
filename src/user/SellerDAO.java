@@ -25,6 +25,24 @@ public class SellerDAO {
 		}
 	}
 	
+	public String sellerName(String sellerID) {
+		String SQL = "SELECT sellerName FROM seller WHERE sellerID = ?";
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, sellerID);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+				}
+				else
+					return null; // password error
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null; // database error
+	}
+
+	
 	public int login(String sellerID, String sellerPW) {
 		String SQL = "SELECT sellerPW FROM seller WHERE sellerID = ?";
 		try {

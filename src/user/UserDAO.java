@@ -43,56 +43,7 @@ public class UserDAO {
 		return -1; //database error
 	}
 	
-//	public int delete(String userID) {
-//		int lastNum;
-//		String userNum = "SELECT userNum FROM user WHERE userID = ?";
-//		String delete = "DELETE FROM user WHERE userNum = ?";
-//		
-//		try {
-//			pstmt = conn.prepareStatement(userNum);
-//			pstmt.setString(1, userID);
-//			
-//			rs = pstmt.executeQuery();
-//			
-//			if(rs.next()) {
-//				lastNum = rs.getInt(1); // find ID
-//				System.out.println(lastNum); // test
-//				
-//				pstmt = conn.prepareStatement(delete);
-//				pstmt.setInt(1, lastNum);
-//				
-//				rs = pstmt.executeQuery(); // delete ผ๖วเ
-//				if(updateIncrement(lastNum+1)) {
-//					return 1;
-//				}
-//				
-//			} else { 
-//				return 0; // there is no same ID
-//			}
-//			return -1; // wrong info
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return -1;
-//	}
-//	
-//	private boolean updateIncrement(int newNum) {
-//		String update = "ALTER TABLE user auto_increment = ?";
-//		
-//		try {
-//			pstmt = conn.prepareStatement(update);
-//			pstmt.setInt(1, newNum);
-//			
-//			rs = pstmt.executeQuery();
-//			return true;
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return false;
-//	}
-	
-	
+
 	
 	public ArrayList<User> getList(int pageNumber) {
 		String SQL = "SELECT * FROM user WHERE userNum < ? ORDER BY userNum DESC LIMIT 10";

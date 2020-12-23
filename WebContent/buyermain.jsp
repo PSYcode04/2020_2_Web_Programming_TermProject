@@ -7,8 +7,15 @@
 <meta http-equiv="Content-Type" content="text/html">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/buyermain.css">
 <title>SKKU Flea Market</title>
+
+<style type="text/css">
+.background-image {
+	width: 100%;
+	object-fit: cover;
+}
+
+</style>
 </head>
 <body>
 	<nav class="navbar navbar-default"> <!-- 네비게이션 -->
@@ -30,7 +37,6 @@
 			<ul class="nav navbar-nav">
 				<li><a href="productList.jsp">Product List</a></li>
 				<li><a href="buyList.jsp">Buy List</a></li>
-				<li><a href="wishList.jsp">Wish List</a></li>
 			</ul>
 			<!-- 헤더 우측에 나타나는 드랍다운 영역 -->
 			<ul class="nav navbar-nav navbar-right">
@@ -46,6 +52,10 @@
 			</ul>
 		</div>
 	</nav>
+	
+	<div class="background-image">
+		<img src="image/logo.png" style='width:100%' alt="">
+	</div>
 	
 	<!-- page footer -->
 	<jsp:include page="footer.jsp"></jsp:include>
