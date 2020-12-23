@@ -3,9 +3,13 @@ package product;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
 public class ProductDAO {
 	
 	private Connection conn;
+	private ResultSet rs;
 	
 	public ProductDAO() {
 		try {
@@ -43,4 +47,82 @@ public class ProductDAO {
 		
 		return -1;
 	}
+	
+
+	public ArrayList<Product> getList(String sellerID) {
+		String SQL = "SELECT * FROM product WHERE sellerID = ?";
+		ArrayList<Product> list = new ArrayList<Product>();
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, sellerID);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Product product = new Product();
+				
+				product.setProductName(rs.getString(2));
+				product.setProductPrice(rs.getString(3));
+				product.setTradingPlace(rs.getString(8));
+				product.setProductStatus(rs.getString(9));
+				product.setProductBuyer(rs.getString(10));
+				list.add(product);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public ArrayList<Product> getProductList(String productName) {
+		String SQL = "SELECT * FROM product WHERE productName = ?";
+		ArrayList<Product> list = null; // 검색 결과 없으면 null
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, productName);
+			rs = pstmt.executeQuery();
+			list = new ArrayList<Product>();
+			
+			while(rs.next()) {
+				Product product = new Product();
+				
+				product.setProductID(Integer.parseInt(rs.getString(1)));
+				product.setProductName(rs.getString(2));
+				product.setProductPrice(rs.getString(3));
+				product.setTradingPlace(rs.getString(8));
+				product.setProductStatus(rs.getString(9));
+				product.setSellerName(rs.getString(7));
+				list.add(product);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public ArrayList<Product> getBuyList(String buyerID) {
+		String SQL = "SELECT * FROM product WHERE productBuyer = ?";
+		ArrayList<Product> list = null; // 검색 결과 없으면 null
+		
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, buyerID);
+			rs = pstmt.executeQuery();
+			list = new ArrayList<Product>();
+			
+			while(rs.next()) {
+				Product product = new Product();
+				
+				product.setProductName(rs.getString(2));
+				product.setProductPrice(rs.getString(3));
+				product.setSellerName(rs.getString(7));
+				list.add(product);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 }

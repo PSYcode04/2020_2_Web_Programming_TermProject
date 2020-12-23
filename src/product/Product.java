@@ -1,6 +1,7 @@
 package product;
 
 public class Product {
+	private int productID;
 	private String productName;
 	private String productPrice;
 	private String productImage;
@@ -12,6 +13,12 @@ public class Product {
 	private String productBuyer;
 	
 	
+	public int getProductID() {
+		return productID;
+	}
+	public void setProductID(int productID) {
+		this.productID = productID;
+	}
 	public String getProductName() {
 		return productName;
 	}

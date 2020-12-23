@@ -61,11 +61,6 @@ public class UserDAO {
 				user.setUserType(rs.getString(5));
 				list.add(user);
 			}
-			
-			
-			// TO DO: 11강 2분 정도 부터~
-			// incresment_auto 
-			// userNum으로 전체 회원 수를 계산해야되는데 incresment_auto는 삭제할때도 +1되므로 적절하지 않음!! 이거 확인해보자.
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -84,11 +79,6 @@ public class UserDAO {
 			if(rs.next()) {
 				return true;
 			}
-			
-			
-			// TO DO: 11강 2분 정도 부터~
-			// incresment_auto 
-			// userNum으로 전체 회원 수를 계산해야되는데 incresment_auto는 삭제할때도 +1되므로 적절하지 않음!! 이거 확인해보자.
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
