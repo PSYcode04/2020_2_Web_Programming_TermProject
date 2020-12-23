@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.io.PrintWriter" %>
+<%@ page import="user.UserDAO" %>
+<%@ page import="user.User" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width", initial-scale="1">
 <link rel="stylesheet" href="css/bootstrap.css">
 <title>SKKU Flea Market</title>
 
@@ -42,16 +46,24 @@
 }
 
 .member-container {
-	margin-top: 20px;
+	margin-top: 30px;
 }
 </style>
-
-
-
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
+	<%
+		String userID = null;
+		if(session.getAttribute("userID") != null) {
+			userID = (String) session.getAttribute("userID");
+		}
+		int pageNumber = 1; // default
+		if(request.getParameter("pageNumber") != null) {
+			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		}
+	%>
+
 	<nav class="navbar navbar-default"> <!-- 네비게이션 -->
 		<div class="navbar-header"> 	<!-- 네비게이션 상단 부분 -->
 			<!-- 네비게이션 상단 박스 영역 -->
@@ -86,8 +98,6 @@
 	<div class="jumbotron">
   		<h1>Member List</h1>
   		<p>You can modify and delete user info.</p>
-  		<p><a class="btn btn-primary btn-lg" href="#" role="button">Seller</a></p>
-  		<p><a class="btn btn-primary btn-lg" href="#" role="button">Buyer</a></p>
   		
 	</div>
 	
@@ -104,8 +114,36 @@
 					<th style="background-color: #eeeeee; text-align:center;">Delete</th>
 				</tr>
 			</thead>
-		
+			<tbody>
+				<%
+					UserDAO userDAO = new UserDAO();
+					ArrayList<User> list = userDAO.getList(pageNumber);
+					for(int i = 0; i <list.size(); i++) {
+				%>
+				<tr>
+					<td><%= list.get(i).getUserID() %></td>
+					<td><%= list.get(i).getUserPW() %></td>
+					<td><%= list.get(i).getUserName() %></td>
+					<td><%= list.get(i).getUserType() %></td>
+					<td><button type="button" class="btn btn-xs btn-outline-dark">Delete</button></td>
+				</tr>
+				<%
+					}
+				%>
+			</tbody>
 		</table>
+		<%
+			if(pageNumber != 1) {
+		%>
+				<a href="adminMain.jsp?pageNumber=<%=pageNumber - 1%>" class="btn btn-primary pull-left btn-lg" role="button">PREV</a>
+		<%
+			} if(userDAO.nextPage(pageNumber + 1)) {
+		%>
+				<a href="adminMain.jsp?pageNumber=<%=pageNumber + 1%>" class="btn btn-primary pull-right btn-lg" role="button">NEXT</a>
+		<%	
+			}
+		%>
+		
 	</div>
 	
 

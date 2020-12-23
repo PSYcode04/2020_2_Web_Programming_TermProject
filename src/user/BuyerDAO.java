@@ -46,7 +46,7 @@ public class BuyerDAO {
 	}
 	
 	public boolean checkDublicate(String buyerID) {
-		String SQL = "SELECT sellerID FROM buyer WHERE sellerID = ?";
+		String SQL = "SELECT buyerID FROM buyer WHERE buyerID = ?";
 		try {
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, buyerID);
@@ -61,6 +61,23 @@ public class BuyerDAO {
 			e.printStackTrace();
 		}
 		return false; // database error
+	}
+	
+	//auto_increment init
+	public int getNext() {
+		//현재 게시글을 내림차순으로 조회하여 가장 마지막 글의 번호를 구한다
+		String SQL = "SELECT userNum FROM user ORDER BY userNum DESC";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1) + 1;
+			}
+			return 1; // if the first user
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; //database error
 	}
 	
 	public int join(Buyer buyer) {
@@ -93,14 +110,17 @@ public class BuyerDAO {
 	}
 	
 	private boolean userUpdate(Buyer buyer) {
-		String SQL2 = "INSERT INTO user(userID, userPW, userName, userType) VALUES (?, ?, ?, ?)";
+		String SQL2 = "INSERT INTO user(userNum, userID, userPW, userName, userType) VALUES (?, ?, ?, ?, ?)";
+		int autoInt = getNext();
+		
 		try {
 			pstmt = conn.prepareStatement(SQL2);
 			
-			pstmt.setString(1, buyer.getBuyerID());
-			pstmt.setString(2, buyer.getBuyerPW());
-			pstmt.setString(3, buyer.getBuyerName());
-			pstmt.setString(4, "buyer");
+			pstmt.setInt(1, autoInt);
+			pstmt.setString(2, buyer.getBuyerID());
+			pstmt.setString(3, buyer.getBuyerPW());
+			pstmt.setString(4, buyer.getBuyerName());
+			pstmt.setString(5, "buyer");
 			
 			return true;
 			

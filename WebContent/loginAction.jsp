@@ -28,8 +28,6 @@
 	String AdminValue = (request.getParameter("checkAdmin") == null) ? "" : request.getParameter("checkAdmin");
 	
 	
-	System.out.println(AdminValue);
-	
 	if(AdminValue.equals("Admin"))
 	{
 		AdminDAO adminDAO = new AdminDAO();

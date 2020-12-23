@@ -63,6 +63,23 @@ public class SellerDAO {
 		return false; // database error
 	}
 	
+	//auto_increment init
+	public int getNext() {
+		//현재 게시글을 내림차순으로 조회하여 가장 마지막 글의 번호를 구한다
+		String SQL = "SELECT userNum FROM user ORDER BY userNum DESC";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt(1) + 1;
+			}
+			return 1; // if the first user
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; //database error
+	}
+	
 	public int join(Seller seller) {
 		String SQL = "INSERT INTO seller(sellerID, sellerPW, sellerName) VALUES (?, ?, ?)";
 		try {
@@ -88,14 +105,17 @@ public class SellerDAO {
 	}
 	
 	private boolean userUpdate(Seller seller) {
-		String SQL2 = "INSERT INTO user(userID, userPW, userName, userType) VALUES (?, ?, ?, ?)";
+		String SQL2 = "INSERT INTO user(userNum, userID, userPW, userName, userType) VALUES (?, ?, ?, ?, ?)";
+		int autoInt = getNext();
+		
 		try {
 			pstmt = conn.prepareStatement(SQL2);
 			
-			pstmt.setString(1, seller.getSellerID());
-			pstmt.setString(2, seller.getSellerPW());
-			pstmt.setString(3, seller.getSellerName());
-			pstmt.setString(4, "seller");
+			pstmt.setInt(1, autoInt);
+			pstmt.setString(2, seller.getSellerID());
+			pstmt.setString(3, seller.getSellerPW());
+			pstmt.setString(4, seller.getSellerName());
+			pstmt.setString(5, "seller");
 			
 			return true;
 			
